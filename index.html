@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Frontend Mentor | Time tracking dashboard</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div class="dashboard" id="app">
+      <div class="dashboard__description">
+        <div class="dashboard__description__profile">
+          <div class="dashboard__description__profile__image">
+            <img src="./images/image-jeremy.png" alt="" />
+          </div>
+          <h1>
+            Report for<br />
+            <span
+              >Jeremy<br />
+              Robson</span
+            >
+          </h1>
+        </div>
+        <div class="dashboard__description__time">
+          <p
+            @click="updateTimeBystatus('day')"
+            :style="[ 
+            timeperiods[0].status === 'day' ? 
+            { 'color': 'white' } : '']"
+          >
+            Daily
+          </p>
+          <p
+            @click="updateTimeBystatus('week')"
+            :style="[ 
+            timeperiods[0].status === 'week' ? 
+            { 'color': 'white' } : '']"
+          >
+            Weekly
+          </p>
+          <p
+            @click="updateTimeBystatus('month')"
+            :style="[ 
+            timeperiods[0].status === 'month' ? 
+            { 'color': 'white' } : '']"
+          >
+            Monthly
+          </p>
+        </div>
+      </div>
+      <div class="dashboard__report__wrapper">
+        <div
+          class="dashboard__report"
+          v-for="period in timeperiods"
+          :style="{ backgroundColor: period.color,}"
+        >
+          <div class="dashboard__report__image">
+            <img :src="period.img" alt="" />
+          </div>
+          <div class="dashboard__report__description">
+            <div class="flex">
+              <p>{{period.title}}</p>
+              <div><img src="./images/icon-ellipsis.svg" alt="" /></div>
+            </div>
+            <div class="flex2">
+              <h1>{{period.cur_time}}hrs</h1>
+              <p>last {{period.status}} - {{period.prev_time}}hrs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            timeperiods: [
+              {
+                title: "Work",
+                cur_time: "5",
+                prev_time: "7",
+                color: "hsl(15, 100%, 70%)",
+                img: "./images/icon-work.svg",
+                status: "day",
+              },
+              {
+                title: "Play",
+                cur_time: "1",
+                prev_time: "2",
+                color: "hsl(195, 74%, 62%)",
+                img: "./images/icon-play.svg",
+                status: "day",
+              },
+              {
+                title: "Study",
+                cur_time: "0",
+                prev_time: "1",
+                color: "hsl(348, 100%, 68%)",
+                img: "./images/icon-study.svg",
+                status: "day",
+              },
+              {
+                title: "Exercise",
+                cur_time: "1",
+                prev_time: "1",
+                color: "hsl(145, 58%, 55%)",
+                img: "./images/icon-exercise.svg",
+                status: "day",
+              },
+              {
+                title: "Social",
+                cur_time: "1",
+                prev_time: "3",
+                color: "hsl(264, 64%, 52%)",
+                img: "./images/icon-social.svg",
+                status: "day",
+              },
+              {
+                title: "Self Care",
+                cur_time: "0",
+                prev_time: "1",
+                color: "hsl(43, 84%, 65%)",
+                img: "./images/icon-self-care.svg",
+                status: "day",
+              },
+            ],
+          };
+        },
+
+        methods: {
+          updateTimeBystatus(time) {
+            fetch(
+              `${
+                window.location.origin +
+                window.location.pathname.replace(/index.html/g, "")
+              }data.json`
+            )
+              .then((response) => response.json())
+              .then((data) =>
+                this.timeperiods.forEach((item) => {
+                  console.log(data[0].timeframes.daily.current);
+                  console.log(time);
+                  let periodData = data.find((i) => i.title === item.title);
+                  this.updateTime(
+                    time,
+                    periodData.timeframes.daily,
+                    item,
+                    "day"
+                  );
+                  this.updateTime(
+                    time,
+                    periodData.timeframes.weekly,
+                    item,
+                    "week"
+                  );
+                  this.updateTime(
+                    time,
+                    periodData.timeframes.monthly,
+                    item,
+                    "month"
+                  );
+                })
+              );
+          },
+          updateTime(giventime, jsontime, item, time) {
+            if (giventime === time) {
+              item.cur_time = jsontime.current;
+              item.prev_time = jsontime.previous;
+              item.status = time;
+            }
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

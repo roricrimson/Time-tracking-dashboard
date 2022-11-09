@@ -1,0 +1,199 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: hsl(226, 43%, 10%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  font-size: 1.8rem;
+  font-family: "Rubik", sans-serif;
+}
+
+.dashboard {
+  display: block;
+  width: 90%;
+  gap: 2rem;
+
+  @media (min-width: 1060px) {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__description {
+    background-color: hsl(235, 46%, 20%);
+    width: 100%;
+
+    border-radius: 1.5rem;
+    margin-bottom: 3rem;
+
+    @media (min-width: 1060px) {
+      margin-bottom: 0;
+      width: 26rem;
+    }
+
+    &__profile {
+      background-color: hsl(246, 80%, 60%);
+      padding: 3rem;
+      border-radius: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+
+      @media (min-width: 1060px) {
+        display: block;
+        padding-bottom: 8rem;
+        height: 34rem;
+      }
+
+      &:hover {
+        background-color: hsl(235, 45%, 61%);
+      }
+
+      &__image {
+        width: 7rem;
+        height: 7rem;
+        border-radius: 100%;
+        border: 0.2rem solid white;
+
+        @media (min-width: 1060px) {
+          margin-bottom: 3rem;
+        }
+        & img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      & span {
+        color: hsl(236, 100%, 87%);
+        font-weight: 300;
+        font-size: 2.5rem;
+        br {
+          content: " ";
+        }
+
+        @media (min-width: 1060px) {
+          br {
+            content: "";
+          }
+          font-size: 3.5rem;
+        }
+      }
+      & h1 {
+        color: hsl(236, 100%, 87%);
+        font-weight: 400;
+        font-size: 1.6rem;
+      }
+    }
+    &__time {
+      padding: 2.5rem;
+      display: flex;
+      justify-content: space-around;
+
+      @media (min-width: 1060px) {
+        display: block;
+      }
+      & p {
+        font-weight: 300;
+        margin-bottom: 1.5rem;
+        color: hsl(235, 45%, 61%);
+      }
+      & p:hover {
+        color: white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  &__report {
+    width: 100%;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    @media (min-width: 1060px) {
+      width: 25rem;
+    }
+
+    &__wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      grid-template-columns: repeat(3, 1fr);
+      @media (min-width: 1060px) {
+        display: grid;
+      }
+    }
+
+    &__image {
+      height: 6rem;
+      position: relative;
+      overflow: hidden;
+
+      & img {
+        position: absolute;
+        right: 1.5rem;
+      }
+    }
+
+    &__description {
+      height: 100%;
+      background-color: hsl(235, 46%, 20%);
+      border-radius: 1.5rem;
+      padding: 2rem;
+      cursor: pointer;
+
+      &:hover {
+        background-color: hsl(236, 43%, 31%);
+      }
+
+      & h1 {
+        font-weight: 300;
+        margin-bottom: 0.5rem;
+      }
+      & p {
+        color: hsl(235, 45%, 61%);
+      }
+    }
+  }
+}
+
+.flex2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @media (min-width: 1060px) {
+    display: block;
+  }
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3.5rem;
+
+  & p {
+    color: white;
+  }
+}
+
+.attribution {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0.5rem;
+  font-size: 12px;
+}
